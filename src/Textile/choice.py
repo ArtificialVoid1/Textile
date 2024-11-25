@@ -29,6 +29,7 @@ class choice:
     def __call__(self) -> str:
         
         def printChoices(iswrong = False):
+            RICH_CONSOLE.clear()
             for i, choice in enumerate(self.choices):
                 num = self.display_type.value.replace('#', str(i))
                 RICH_CONSOLE.print( num + choice )
