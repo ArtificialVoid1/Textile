@@ -6,9 +6,6 @@ from PIL import Image
 
 from console import RICH_CONSOLE, Color3
 
-def interpolate(a, b, t):
-    return (1 - t) * a + t * b
-
 def printIMG(ImagePath : str) -> None:
     IMG = Image.open(ImagePath)
 
