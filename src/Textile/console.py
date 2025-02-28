@@ -21,7 +21,7 @@ class Color3:
     
     @staticmethod
     def lerp(Color1 : Color3 , Color2 : Color3, alpha : float) -> Color3:
-        return Color3.from_rgb(
+        return Color3(
             (
                 interpolate(Color1.r, Color2.r, t),
                 interpolate(Color1.g, Color2.g, t),
