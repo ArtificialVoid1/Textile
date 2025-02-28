@@ -65,17 +65,28 @@ class GradientColor3:
     ColorSequence : List[GradientKeyframe]
 
     def __init__(self, Colors : list[GradientKeyframe]):
-        self.ColorSequence = Colors
+        self.ColorSequence = sorted(Colors, key=lambda Color: Color.Time)
+        self.MaxTime = 0
+        for color in Colors:
+            if color.Time > self.MaxTime:
+                self.MaxTime = color.Time
+        
+
+    def addKeyframe(self, _Color : GradientKeyframe):
+        self.ColorSequence.append(_Color)
+        if _Color.Time > self.MaxTime:
+            self.MaxTime = _Color.Time
+        self.ColorSequence = sorted(self.ColorSequence, key=lambda Color: Color.Time)
 
     def getColor(self, _Time : int | float) -> Color3:
+        self.ColorSequence = sorted(self.ColorSequence, key=lambda Color: Color.Time)
         for i in range(len(self.ColorSequence) - 1):
             if self.ColorSequence[i].Time <= _Time < self.ColorSequence[i + 1].Time:
                 Color1 = self.ColorSequence[i].Color
                 Color2 = self.ColorSequence[i + 1].Color
-                # Calculate the interpolation factor
+                
                 Alpha = (_Time - self.ColorSequence[i].Time) / (self.ColorSequence[i + 1].Time - self.ColorSequence[i].Time)
                 return Color3.lerp(Color1, Color2, Alpha)
-
-        # If the time is outside the range of keyframes, return the first and last colors
+                
         if _Time <= self.ColorSequence[0].Time:
             raise IndexError('Time Given is outside Index')
