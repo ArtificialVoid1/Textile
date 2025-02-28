@@ -15,5 +15,11 @@ def printIMG(ImagePath : str) -> None:
             NewClr = Color3.from_rgb((r, g, b))
             RICH_CONSOLE.print('██', Style=NewClr, end='')
 
-def printGradient(text : str, Gradient : GradientColor3):
-    
+def printGradient(text : str, Gradient : GradientColor3, end='\n'):
+    textLen = len(text)
+
+    for index, Char in enumerate(text):
+        _Time = index * ?
+        Color = Gradient.getColor(_Time)
+        RICH_CONSOLE.print(Char, style=Color(), end='')
+    RICH_CONSOLE.print(end, end='')
