@@ -12,7 +12,7 @@ def printIMG(ImagePath : str) -> None:
     for y in range(IMG.size[1]):
         for x in range(IMG.size[0]):
             r, g, b = IMG.getpixel((x, y))
-            NewClr = Color3.from_rgb((r, g, b))
+            NewClr = Color3.RgbToStyle((r, g, b))
             RICH_CONSOLE.print('██', Style=NewClr, end='')
 
 def printGradient(text : str, Gradient : GradientColor3, end='\n'):
