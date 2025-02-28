@@ -20,5 +20,5 @@ def printGradient(text : str, Gradient : GradientColor3, end='\n'):
     for index, Char in enumerate(text):
         _Time = index / (textLen - 1)
         Color = Gradient.getColor(_Time)
-        RICH_CONSOLE.print(Char, style=Color(), end='')
+        RICH_CONSOLE.print(Char, Style=Color(), end='')
     RICH_CONSOLE.print(end, end='')
