@@ -1,14 +1,25 @@
+from __future__ import annotations
+
 from rich.console import Console
 from rich.style import Style
 from rich.color_triplet import ColorTriplet
 from rich.color import Color, ColorType
 
+from typing import List
+
+
+#---------------------------------------------#
+
 RICH_CONSOLE = Console()
 
 
-def interpolate(a, b, t):
-    return (1 - t) * a + t * b
+#---------------Helper functions--------------#
 
+def interpolate(a, b, t) -> int:
+    return int((1 - t) * a + t * b)
+
+
+#-----------------Classes---------------------#
 
 class Color3:
 
@@ -23,9 +34,9 @@ class Color3:
     def lerp(Color1 : Color3 , Color2 : Color3, alpha : float) -> Color3:
         return Color3(
             (
-                interpolate(Color1.r, Color2.r, t),
-                interpolate(Color1.g, Color2.g, t),
-                interpolate(Color1.b, Color2.b, t),
+                interpolate(Color1.r, Color2.r, alpha),
+                interpolate(Color1.g, Color2.g, alpha),
+                interpolate(Color1.b, Color2.b, alpha),
             )
         )
 
@@ -36,28 +47,30 @@ class Color3:
     
     def __mul__(self, other):
         if isinstance(other, Color3):
-            return Color3.from_rgb(
+            return Color3(
                 (
-                    self.r * other.r,
-                    self.g * other.g,
-                    self.b * other.b
+                    int(self.r * other.r),
+                    int(self.g * other.g),
+                    int(self.b * other.b)
                 )
             )
         elif isinstance(other, (int, float)):
             return Color3(
                 (
-                    self.r * other,
-                    self.g * other,
-                    self.b * other,
+                    int(self.r * other),
+                    int(self.g * other),
+                    int(self.b * other),
                 )
             )
     def __call__(self):
         return self.RgbToStyle((self.r, self.g, self.b))
 
+#-----------------Gradient---------------------#
+
 class GradientKeyframe:
     Color : Color3
     Time : float
-    def __init__(self, _Color : Color3 | (int, int, int), _Time : int | float):
+    def __init__(self, _Color : Color3, _Time : int | float):
         self.Color = _Color
         self.Time = _Time
 
