@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from rich.console import Console
 from rich.style import Style
 from rich.color_triplet import ColorTriplet
@@ -31,7 +29,7 @@ class Color3:
         return NewStyle
     
     @staticmethod
-    def lerp(Color1 : Color3 , Color2 : Color3, alpha : float) -> Color3:
+    def lerp(Color1, Color2, alpha : float):
         return Color3(
             (
                 interpolate(Color1.r, Color2.r, alpha),
@@ -91,7 +89,7 @@ class GradientColor3:
             self.MaxTime = _Color.Time
         self.ColorSequence = sorted(self.ColorSequence, key=lambda Color: Color.Time)
 
-    def getColor(self, _Time : int | float) -> Color3:
+    def getColor(self, _Time : int | float):
         self.ColorSequence = sorted(self.ColorSequence, key=lambda Color: Color.Time)
         for i in range(len(self.ColorSequence) - 1):
             if self.ColorSequence[i].Time <= _Time < self.ColorSequence[i + 1].Time:
